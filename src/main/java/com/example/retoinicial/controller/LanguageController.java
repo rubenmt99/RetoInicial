@@ -3,6 +3,8 @@ package com.example.retoinicial.controller;
 import com.example.retoinicial.entity.Language;
 import com.example.retoinicial.service.ILanguageService;
 import com.example.retoinicial.swagger.ShowApi;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +25,13 @@ public class LanguageController {
     ILanguageService languageService;
 
     @GetMapping("/list")
+    @Operation(summary = "Obtener lista de idiomas")
     public ResponseEntity<List<Language>> listLanguages(){
         return ResponseEntity.ok(languageService.listLanguages());
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Obtener idioma por id")
     public ResponseEntity<Language> getLanguage(@PathVariable("id") Integer id){
         Language language1 = languageService.getLanguage(id);
         if (language1 == null){
@@ -38,6 +42,7 @@ public class LanguageController {
 
 
     @PostMapping()
+    @Operation(summary = "Crear nuevo idioma")
     public ResponseEntity<Language> createLanguage(@Valid @RequestBody Language language, BindingResult result){
         if (result.hasErrors()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -48,6 +53,7 @@ public class LanguageController {
 
 
     @PutMapping("/{id}")
+    @Operation(summary = "Actualizar idioma")
     public ResponseEntity<Language> updateLanguage(@Valid @RequestBody Language language, BindingResult result, @PathVariable("id") Integer id){
         language.setId(id);
         if (result.hasErrors()){
@@ -61,6 +67,7 @@ public class LanguageController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Borrar idioma por id")
     public ResponseEntity<Language> deleteLanguage(@PathVariable("id") Integer id){
         Language language = languageService.getLanguage(id);
         if (language == null){
@@ -72,6 +79,7 @@ public class LanguageController {
 
 
     @GetMapping("/message/{code}")
+    @Operation(summary = "Obtener mensaje")
     public ResponseEntity<String> getMessageByLanguage(@PathVariable("code") String code){
         Language language = languageService.findByCode(code.toUpperCase());
         if (language == null){
