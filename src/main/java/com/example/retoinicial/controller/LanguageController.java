@@ -1,7 +1,8 @@
-package com.example.retoinicial;
+package com.example.retoinicial.controller;
 
 import com.example.retoinicial.entity.Language;
 import com.example.retoinicial.service.ILanguageService;
+import com.example.retoinicial.swagger.ShowApi;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/languages")
+@ShowApi
 public class LanguageController {
 
     @Autowired
@@ -68,5 +70,14 @@ public class LanguageController {
         return ResponseEntity.ok(language);
     }
 
+
+    @GetMapping("/message/{code}")
+    public ResponseEntity<String> getMessageByLanguage(@PathVariable("code") String code){
+        Language language = languageService.findByCode(code.toUpperCase());
+        if (language == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(language.getMessage());
+    }
 
 }

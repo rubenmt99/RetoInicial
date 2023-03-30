@@ -2,12 +2,15 @@ package com.example.retoinicial;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class RetoInicialApplication {
+public class RetoInicialApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(RetoInicialApplication.class, args);
     }
+
+
 
 }
