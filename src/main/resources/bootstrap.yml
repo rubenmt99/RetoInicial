@@ -8,3 +8,8 @@ spring:
       username: root
       password: s3cr3t
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
